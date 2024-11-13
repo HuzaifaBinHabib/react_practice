@@ -1,0 +1,25 @@
+/* src/components/HomePage.css */
+.homepage {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .landscape-image {
+    width: 100%;
+    height: 450px; /* Set a fixed height of 300px */
+    object-fit: contain; /* Ensure the image fits within the container without cropping */
+  }
+  
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .slick-dots {
+    bottom: 10px; /* Position dots near the bottom */
+  }
+  
+  .slick-dots li button:before {
+    color: #fff; /* Change dot color to white */
+  }
+  

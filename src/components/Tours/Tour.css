@@ -1,0 +1,12 @@
+.tour-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .tour-container {
+    border: 1px solid #ccc;
+    padding: 16px;
+    width: 100%; /* or a specific width */
+  }
+  

@@ -1,0 +1,28 @@
+/* src/styles.css */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .home-page {
+    text-align: center;
+  }
+  
+  .product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .product-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+  
