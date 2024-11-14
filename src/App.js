@@ -14,23 +14,29 @@ import Contact from './components/Contact/ContactPage';
 import LoginPage from './components/Auth/LoginPage';
 import SignupPage from './components/Auth/SignupPage';
 import './App.css';
+import { AuthProvider } from './components/Protected/AuthContext';
+import ProtectedRoute from './components/Protected/ProtectedRoute';
 
 function App() {
   return (
+    <AuthProvider>
+
     <Router>
       <div className="App">
         {/* <Header /> */}
         <Routes>
           <Route path="/" element={<LoginPage />} />        
           <Route path="/Signup" element={<SignupPage />} />        
-          <Route path="/Home" element={<HomePage />} />        
-          <Route path="/Tours" element={<TourPage />} />        
-          <Route path="/Products" element={<ProductPage />} />        
-          <Route path="/About" element={<AboutPage />} />        
-          <Route path="/Contact" element={<Contact />} />        
+          <Route path="/Home" element={<ProtectedRoute> <HomePage /> </ProtectedRoute>} />        
+          <Route path="/Tours" element={<ProtectedRoute> <TourPage /></ProtectedRoute>} />        
+          <Route path="/Products" element={<ProtectedRoute> <ProductPage /> </ProtectedRoute>} />        
+          <Route path="/About" element={<ProtectedRoute> <AboutPage /> </ProtectedRoute>} />        
+          <Route path="/Contact" element={<ProtectedRoute> <Contact /> </ProtectedRoute>} />        
         </Routes>
       </div>
     </Router>
+     </AuthProvider>
+
   );
 }
 

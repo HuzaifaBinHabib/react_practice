@@ -6,26 +6,49 @@ body {
     color: #333;
   }
   
-  /* Header */
-  .header {
-    background-color: #212a33;
-    padding: 20px;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .header nav a {
-    color: #fff;
-    margin: 0 10px;
-    text-decoration: none;
-  }
-  
-  .header nav a:hover {
-    text-decoration: underline;
-  }
-  
+/* Header */
+.header {
+  background-color: #212a33;
+  padding: 20px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0; /* Remove default margin */
+}
+
+.header nav {
+  display: flex;
+  align-items: center;
+}
+
+.header nav a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.header nav a:hover {
+  text-decoration: underline;
+}
+
+.header button {
+  background-color: #ff4b5c; /* Button background color */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.header button:hover {
+  background-color: #e0434d; /* Darker shade for hover effect */
+}
 
   
   /* Product List */
