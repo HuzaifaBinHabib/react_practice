@@ -1,83 +1,103 @@
-// src/components/Auth/SignupPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Signup.css';
 
-function SignupPage() {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+const SignupPage = () => {
+  const [formData, setFormData] = useState({
+    userName: '',
+    email: '',
+    password: '',
+    passwordconfirm: '',
+  });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
-    if (!username || !email || !password || !confirmPassword) {
-      setError('Please fill in all fields');
-      return;
-    }
-    if (password !== confirmPassword) {
+    if (formData.password !== formData.passwordconfirm) {
       setError('Passwords do not match');
+      setSuccess('');
       return;
     }
 
-    setError(''); // Clear any previous error
-
-    // Mock signup success (replace with actual API call for signup)
-    alert('Signup successful!');
-    navigate('/'); // Redirect to login page after signup (or homepage)
+    try {
+      await axios.post('http://localhost:5000/api/v1/auth/signup', formData);
+      setSuccess('User created successfully!');
+      setError('');
+      alert(`Signup successfully!`);
+      navigate('/');
+    } catch (err) {
+      setError('Error creating user. Please try again.');
+      setSuccess('');
+    }
   };
 
   return (
     <div className="signup-container">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSignup}>
+      <h2>Signup</h2>
+      <form onSubmit={handleSubmit}>
         <div className="input-group">
-          <label>Username</label>
+          <label htmlFor="userName">User Name</label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter your username"
+            id="userName"
+            name="userName"
+            value={formData.userName}
+            onChange={handleChange}
+            required
           />
         </div>
         <div className="input-group">
-          <label>Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
           />
         </div>
         <div className="input-group">
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
           />
         </div>
         <div className="input-group">
-          <label>Confirm Password</label>
+          <label htmlFor="passwordconfirm">Confirm Password</label>
           <input
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm your password"
+            id="passwordconfirm"
+            name="passwordconfirm"
+            value={formData.passwordconfirm}
+            onChange={handleChange}
+            required
           />
         </div>
-        {error && <div className="error-message">{error}</div>}
-        <p>Login if You Signup <a href='/'>Login</a></p>
-
+        {error && <p className="error-message">{error}</p>}
+        {success && <p style={{ color: 'green' }}>{success}</p>}
         <button type="submit">Sign Up</button>
       </form>
     </div>
   );
-}
+};
 
 export default SignupPage;
