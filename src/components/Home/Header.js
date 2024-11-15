@@ -9,7 +9,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/'); // Redirect to login page on logout
+    navigate('/'); // Redirect to login page after logout
   };
 
   return (

@@ -2,38 +2,38 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Login.css';
 import { useAuth } from '../Protected/AuthContext';
+import './Login.css';
 
-function LoginPage() {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
   const { login } = useAuth();
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Basic validation
-    if (!email || !password) {
-      setError('Please enter both email and password');
-      return;
-    }
-
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/auth/signin', { email, password });
+      const response = await axios.post('http://localhost:5000/api/v1/auth/signin', {
+        email,
+        password,
+      });
 
-      // Check if the login was successful
-      if (response.data.status === 'success') {
-        alert('Login successful!');
-        login(); // Update isLoggedIn to true
+      const { status, token, data } = response.data;
 
-        navigate('/Home'); // Redirect to home page on success
-      } else {
-        setError('Invalid email or password');
+      if (status === 'success') {
+        // Save the token and login the user
+        login(token); // Save the token to the context
+        localStorage.setItem('authToken', token); // Optionally save the token for persistence
+        alert(`Welcome, ${data.user.userName}!`);
+        navigate('/home'); // Redirect to the home page
       }
     } catch (error) {
-      setError(error.response?.data?.message || 'Invalid email or password');
+      if (error.response && error.response.data.message) {
+        alert(`Error: ${error.response.data.message}`);
+      } else {
+        alert('An unexpected error occurred. Please try again.');
+      }
     }
   };
 
@@ -45,26 +45,28 @@ function LoginPage() {
           <label>Email</label>
           <input
             type="email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
           />
         </div>
         <div className="input-group">
           <label>Password</label>
           <input
             type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
           />
         </div>
-        {error && <div className="error-message">{error}</div>}
-        <p>Don't have an account? <a href='/Signup'>Signup</a></p>
+        <p>
+        Don't have an account? <a href="/Signup">Signup</a>
+      </p>
         <button type="submit">Login</button>
       </form>
     </div>
   );
-}
+  
+};
 
 export default LoginPage;
