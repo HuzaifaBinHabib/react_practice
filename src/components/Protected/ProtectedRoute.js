@@ -9,7 +9,9 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/home" replace />;
   }
 
-  return children;
+  return ( 
+     children
+  );
 };
 
 export default ProtectedRoute;

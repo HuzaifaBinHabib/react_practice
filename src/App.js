@@ -7,12 +7,15 @@ import HomePage from './components/Home/Homepage';
 import TourPage from './components/Tours/TourPage';
 import ProductPage from './components/Products/ProductPage';
 import AboutPage from './components/About/AboutPage';
-import Contact from './components/Contact/ContactPage';
+import ContactPage from './components/Contact/ContactPage';
 import LoginPage from './components/Auth/LoginPage';
 import SignupPage from './components/Auth/SignupPage';
 import './App.css';
 import { AuthProvider } from './components/Protected/AuthContext';
 import ProtectedRoute from './components/Protected/ProtectedRoute';
+import ProductDetails from './components/Products/ProductDetails';
+import TourDetails from './components/Tours/TourDetails';
+import Payment from './components/Booking/payment';
 
 function App() {
   return (
@@ -22,11 +25,11 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<LoginPage />} />
-            <Route path="/Signup" element={<SignupPage />} />
+            <Route path="/signup" element={<SignupPage />} />
 
             {/* Protected Routes */}
             <Route
-              path="/Home"
+              path="/home"
               element={
                 <ProtectedRoute>
                   <HomePage />
@@ -34,7 +37,7 @@ function App() {
               }
             />
             <Route
-              path="/Tours"
+              path="/tours"
               element={
                 <ProtectedRoute>
                   <TourPage />
@@ -42,7 +45,7 @@ function App() {
               }
             />
             <Route
-              path="/Products"
+              path="/products"
               element={
                 <ProtectedRoute>
                   <ProductPage />
@@ -50,7 +53,7 @@ function App() {
               }
             />
             <Route
-              path="/About"
+              path="/about"
               element={
                 <ProtectedRoute>
                   <AboutPage />
@@ -58,13 +61,43 @@ function App() {
               }
             />
             <Route
-              path="/Contact"
+              path="/contact"
               element={
                 <ProtectedRoute>
-                  <Contact />
+                  <ContactPage />
                 </ProtectedRoute>
               }
             />
+
+            <Route
+              path="/product/:id"
+              element={
+                <ProtectedRoute>
+                  <ProductDetails />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/tour/:id"
+              element={
+                <ProtectedRoute>
+                  <TourDetails/>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payment/:id"
+              element={
+                <ProtectedRoute>
+                  <Payment/>
+                </ProtectedRoute>
+              }
+            />
+
+
+            {/* Fallback Route */}
+            <Route path="*" element={<div><h1>404 - Page Not Found</h1></div>} />
           </Routes>
         </div>
       </Router>
