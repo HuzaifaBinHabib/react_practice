@@ -21,6 +21,8 @@ const Header = () => {
         <Link to="/products">Products</Link>
         <Link to="/about">About</Link>
         <Link to="/contact">Contact</Link>
+        <Link to="/cart">Cart</Link> {/* Cart link */}
+        <Link to="/checkout">Checkout</Link> {/* Checkout link */}
         <button onClick={handleLogout}>Logout</button>
       </>
     );

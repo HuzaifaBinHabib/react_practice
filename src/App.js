@@ -13,9 +13,8 @@ import SignupPage from './components/Auth/SignupPage';
 import './App.css';
 import { AuthProvider } from './components/Protected/AuthContext';
 import ProtectedRoute from './components/Protected/ProtectedRoute';
-import ProductDetails from './components/Products/ProductDetails';
-import TourDetails from './components/Tours/TourDetails';
-import Payment from './components/Booking/payment';
+import ProductPayment from './components/Booking/ProductPayment';
+import TourPayment from './components/Booking/TourPayment';
 
 function App() {
   return (
@@ -73,7 +72,7 @@ function App() {
               path="/product/:id"
               element={
                 <ProtectedRoute>
-                  <ProductDetails />
+                  <ProductPayment />
                 </ProtectedRoute>
               }
             />
@@ -82,18 +81,11 @@ function App() {
               path="/tour/:id"
               element={
                 <ProtectedRoute>
-                  <TourDetails/>
+                  <TourPayment/>
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/payment/:id"
-              element={
-                <ProtectedRoute>
-                  <Payment/>
-                </ProtectedRoute>
-              }
-            />
+
 
 
             {/* Fallback Route */}
