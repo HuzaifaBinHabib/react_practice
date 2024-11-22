@@ -1,11 +1,9 @@
 import React from 'react';
 import './Contact.css'; // Import the CSS file for styling
-import Header from '../Home/Header';
 
 const ContactPage = () => {
     return (
         <div className="contact-page">
-                  <Header/>
 
 
             <section className="contact-section">

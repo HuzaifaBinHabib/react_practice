@@ -1,7 +1,6 @@
 // src/components/HomePage.js
 import React, { useEffect, useState } from 'react';
 import ProductList from './ProductList';
-import Header from '../Home/Header';
 // import "./Product.css"
 
 
@@ -22,7 +21,6 @@ function ProductPage() {
 
   return (
     <div className="homepage">
-            <Header/>
       <h1>Products</h1>
       <ProductList products={products}/>
     </div>

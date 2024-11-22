@@ -8,8 +8,8 @@ body {
   
 /* Header */
 .header {
-  background-color: #212a33;
-  padding: 20px;
+  background-color: #000000;
+  padding: 30px;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -36,7 +36,7 @@ body {
 }
 
 .header button {
-  background-color: #ff4b5c; /* Button background color */
+  background-color: #5593db; /* Button background color */
   color: #fff;
   border: none;
   padding: 10px 20px;

@@ -1,127 +1,94 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import './CartPage.css';
 
-const CartPage = () => {
-  const [cartItems, setCartItems] = useState([]);
+const Cart = () => {
+  const [cartItems, setCartItems] = useState([]);  // Initialize cartItems as an empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchCartItems = async () => {
-    try {
-      const token = localStorage.getItem('token'); // Assuming user token is stored here
-      const response = await axios.get('http://localhost:5000/api/v1/add-to-cart', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setCartItems(response.data.items);
-      setLoading(false);
-    } catch (err) {
-      setError('Failed to fetch cart items. Please try again later.');
-      setLoading(false);
-    }
-  };
-
-  const updateCartItem = async (productId, quantity) => {
-    try {
-      const token = localStorage.getItem('token');
-      await axios.patch(
-        `http://localhost:5000/api/v1/cart/${productId}`,
-        { quantity },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      fetchCartItems(); // Refresh cart items
-    } catch (err) {
-      setError('Failed to update cart item.');
-    }
-  };
-
-  const removeCartItem = async (productId) => {
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/v1/cart/${productId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      fetchCartItems(); // Refresh cart items
-    } catch (err) {
-      setError('Failed to remove cart item.');
-    }
-  };
-
-  const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2);
-  };
-
+  // Fetch cart items when component mounts
   useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/v1/booking/add-to-cart'); // Replace with your actual API endpoint
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          setCartItems(data.data || []);  // Ensure we always set an array, even if the response is empty
+        } else {
+          setError('No items in your cart');
+        }
+      } catch (err) {
+        setError('Failed to load cart items');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchCartItems();
   }, []);
 
   if (loading) {
-    return <div className="spinner">Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <div>{error}</div>;
   }
 
   return (
-    <div className="cart-page">
+    <div className="cart-container">
       <h1>Your Cart</h1>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p>No items in your cart.</p>
       ) : (
-        <div>
-          <div className="cart-items">
-            {cartItems.map((item) => (
-              <div key={item.product._id} className="cart-item">
-                <img
-                  src={item.product.imageUrl || '/fallback-image.jpg'}
-                  alt={item.product.name}
-                  onError={(e) => (e.target.src = '/fallback-image.jpg')}
-                />
-                <div className="item-details">
-                  <h2>{item.product.name}</h2>
-                  <p>{item.product.description}</p>
-                  <p>
-                    Price: <strong>${item.product.price.toFixed(2)}</strong>
-                  </p>
-                  <div className="quantity-control">
-                    <button
-                      onClick={() => updateCartItem(item.product._id, item.quantity - 1)}
-                      disabled={item.quantity <= 1}
-                    >
-                      -
-                    </button>
-                    <span>{item.quantity}</span>
-                    <button
-                      onClick={() => updateCartItem(item.product._id, item.quantity + 1)}
-                      disabled={item.quantity >= item.product.stock}
-                    >
-                      +
-                    </button>
-                  </div>
-                  <button onClick={() => removeCartItem(item.product._id)} className="btn-remove">
-                    Remove
-                  </button>
+        <div className="cart-items">
+          {cartItems.map((item) => (
+            <div className="cart-item" key={item._id}>
+              {/* Render Product Details if present */}
+              {item.productDetails && (
+                <div className="product-info">
+                  <h3>{item.productDetails.name}</h3>
+                  <p>{item.productDetails.description}</p>
+                  <p>Price: ${item.productDetails.price}</p>
+                  {item.productDetails.photo && (
+                    <img 
+                      src={item.productDetails.photo} 
+                      alt={item.productDetails.name} 
+                      style={{ width: '100px', height: '100px', objectFit: 'cover' }} 
+                    />
+                  )}
                 </div>
+              )}
+
+              {/* Render Tour Details if present */}
+              {item.tourDetails && (
+                <div className="tour-info">
+                  <h3>{item.tourDetails.name}</h3>
+                  <p>{item.tourDetails.description}</p>
+                  <p>Price: ${item.tourDetails.price}</p>
+                  {item.tourDetails.photo && (
+                    <img 
+                      src={item.tourDetails.photo} 
+                      alt={item.tourDetails.name} 
+                      style={{ width: '100px', height: '100px', objectFit: 'cover' }} 
+                    />
+                  )}
+                </div>
+              )}
+
+              <div className="quantity">
+                <p>Quantity: {item.quantity}</p>
               </div>
-            ))}
-          </div>
-          <div className="cart-summary">
-            <h3>Total: ${calculateTotal()}</h3>
-            <button className="btn-checkout">Proceed to Checkout</button>
-          </div>
+              <div className="total">
+                <p>Total: ${item.productDetails ? item.productDetails.price * item.quantity : item.tourDetails.price * item.quantity}</p>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
   );
 };
 
-export default CartPage;
+export default Cart;

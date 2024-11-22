@@ -1,7 +1,6 @@
 // src/components/HomePage.js (formerly TourPage.js)
 import React, { useEffect, useState } from 'react';
 import TourList from './TourList';
-import Header from '../Home/Header';
 // import "./Tour.css";
 
 function HomePage() {
@@ -21,7 +20,6 @@ function HomePage() {
 
   return (
     <div className="homepage">
-            <Header/>
 
       <h1>Tours</h1>
       <TourList tours={tours} />

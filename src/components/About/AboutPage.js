@@ -1,11 +1,9 @@
 import React from 'react';
 import './About.css'; // Import the CSS file for styling
-import Header from '../Home/Header';
 
 const AboutPage = () => {
     return (
         <div className="about-page">
-                  <Header/>
 
 
 

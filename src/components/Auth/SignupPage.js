@@ -94,6 +94,9 @@ const SignupPage = () => {
         </div>
         {error && <p className="error-message">{error}</p>}
         {success && <p style={{ color: 'green' }}>{success}</p>}
+        <p>
+        If you have an account? <a href="/login">Login</a>
+      </p>
         <button type="submit">Sign Up</button>
       </form>
     </div>

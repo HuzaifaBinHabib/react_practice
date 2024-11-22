@@ -15,73 +15,95 @@ import { AuthProvider } from './components/Protected/AuthContext';
 import ProtectedRoute from './components/Protected/ProtectedRoute';
 import ProductPayment from './components/Booking/ProductPayment';
 import TourPayment from './components/Booking/TourPayment';
+import CartPage from './components/Booking/CartPage';
+import Checkoutpage from './components/Booking/Checkoutpage';
+import Header from './components/Home/Header'
 
 function App() {
   return (
     <AuthProvider>
+       
       <Router>
+        <Header/>
         <div className="App">
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
 
             {/* Protected Routes */}
             <Route
               path="/home"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <HomePage />
-                </ProtectedRoute>
+                // </ProtectedRoute>
               }
             />
             <Route
               path="/tours"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <TourPage />
-                </ProtectedRoute>
+                // </ProtectedRoute>
               }
             />
             <Route
               path="/products"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <ProductPage />
-                </ProtectedRoute>
+                // </ProtectedRoute>
               }
             />
             <Route
               path="/about"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <AboutPage />
-                </ProtectedRoute>
+                // </ProtectedRoute>
               }
             />
             <Route
               path="/contact"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <ContactPage />
-                </ProtectedRoute>
+                // </ProtectedRoute>
               }
             />
 
             <Route
               path="/product/:id"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <ProductPayment />
-                </ProtectedRoute>
+                // {/* </ProtectedRoute> */}
               }
             />
 
             <Route
               path="/tour/:id"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <TourPayment/>
+                // {/* </ProtectedRoute> */}
+              }
+            />
+            <Route
+              path="/CartPage"
+              element={
+                // <ProtectedRoute>
+                  <CartPage/>
+                // {/* </ProtectedRoute> */}
+              }
+            />
+            <Route
+              path="/Checkoutpage"
+              element={
+                <ProtectedRoute>
+                  <Checkoutpage/>
                 </ProtectedRoute>
               }
             />
@@ -93,7 +115,7 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </AuthProvider>
+     </AuthProvider>
   );
 }
 

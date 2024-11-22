@@ -1,19 +1,24 @@
 import React from 'react';
-import { useAuth } from '../Protected/AuthContext';
+import { useAuth } from '../Protected/AuthContext'; // Custom authentication context
 import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const { isLoggedIn, logout } = useAuth(); // Access isLoggedIn and logout
+  const { isLoggedIn, logout } = useAuth(); // Access authentication status and logout function
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
-    navigate('/'); // Redirect to login page after logout
+    logout(); // Call the logout function
+    navigate('/login'); // Redirect to login page after logout
+  };
+
+  const handleLogin = () => {
+    navigate('/login'); // Redirect to login page
   };
 
   let navLinks;
 
   if (isLoggedIn) {
+    // User is logged in
     navLinks = (
       <>
         <Link to="/home">Home</Link>
@@ -21,13 +26,37 @@ const Header = () => {
         <Link to="/products">Products</Link>
         <Link to="/about">About</Link>
         <Link to="/contact">Contact</Link>
-        <Link to="/cart">Cart</Link> {/* Cart link */}
-        <Link to="/checkout">Checkout</Link> {/* Checkout link */}
-        <button onClick={handleLogout}>Logout</button>
+        <Link to="/CartPage">
+  <img 
+    src="https://i.ibb.co/qnPPjpt/Whats-App-Image-2024-11-22-at-01-44-53-51707cfc.jpg" 
+    alt="Cart Icon" 
+    style={{ width: '40px', height: '30px' }} 
+  />
+</Link>
+        <Link to="/Checkoutpage">Checkout</Link>
+        <button onClick={handleLogout}>Logout</button> {/* Show Logout button */}
       </>
     );
   } else {
-    navLinks = <Link to="/">Login</Link>;
+    // User is not logged in
+    navLinks = (
+      <>
+        <Link to="/home">Home</Link>
+        <Link to="/tours">Tours</Link>
+        <Link to="/products">Products</Link>
+        <Link to="/about">About</Link>
+        <Link to="/contact">Contact</Link>
+        <Link to="/CartPage">
+  <img 
+    src="https://i.ibb.co/qnPPjpt/Whats-App-Image-2024-11-22-at-01-44-53-51707cfc.jpg" 
+    alt="Cart Icon" 
+    style={{ width: '40px', height: '30px' }} 
+  />
+</Link>
+
+        <button onClick={handleLogin}>Login</button> {/* Show Login button */}
+      </>
+    );
   }
 
   return (
