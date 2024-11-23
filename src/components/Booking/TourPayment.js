@@ -36,11 +36,15 @@ const TourPayment = () => {
   }, [tour]);
 
 const handleAddToCart = async () => {
+  if (!isLoggedIn) {
+    setPaymentError("Please log in first.");
+    return;
+  }
   setLoading(true);
   setPaymentError(null);
 
   try {
-    const token = localStorage.getItem("token"); // Check if the user is logged in
+    const token = localStorage.getItem('authToken');
     const itemId = tour._id || tour.id;
     if (!itemId) {
       throw new Error('Tour ID is missing');
@@ -81,7 +85,7 @@ const handleAddToCart = async () => {
     setPaymentError(null);
 
     try {
-      const token = localStorage.getItem('token'); 
+      const token = localStorage.getItem('authToken');
       if (!token) {
         throw new Error("No token found. Please log in.");
       }

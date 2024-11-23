@@ -94,9 +94,9 @@ function App() {
             <Route
               path="/CartPage"
               element={
-                // <ProtectedRoute>
+                <ProtectedRoute>
                   <CartPage/>
-                // {/* </ProtectedRoute> */}
+                </ProtectedRoute>
               }
             />
             <Route

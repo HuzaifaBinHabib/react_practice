@@ -33,7 +33,6 @@ const Header = () => {
     style={{ width: '40px', height: '30px' }} 
   />
 </Link>
-        <Link to="/Checkoutpage">Checkout</Link>
         <button onClick={handleLogout}>Logout</button> {/* Show Logout button */}
       </>
     );
@@ -46,13 +45,7 @@ const Header = () => {
         <Link to="/products">Products</Link>
         <Link to="/about">About</Link>
         <Link to="/contact">Contact</Link>
-        <Link to="/CartPage">
-  <img 
-    src="https://i.ibb.co/qnPPjpt/Whats-App-Image-2024-11-22-at-01-44-53-51707cfc.jpg" 
-    alt="Cart Icon" 
-    style={{ width: '40px', height: '30px' }} 
-  />
-</Link>
+
 
         <button onClick={handleLogin}>Login</button> {/* Show Login button */}
       </>

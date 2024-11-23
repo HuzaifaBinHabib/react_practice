@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './CartPage.css';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);  // Initialize cartItems as an empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();  // Initialize navigate hook
 
   // Fetch cart items when component mounts
   useEffect(() => {
@@ -87,6 +89,22 @@ const Cart = () => {
           ))}
         </div>
       )}
+      {/* Checkout Button */}
+      <button 
+        className="checkout-button" 
+        onClick={() => navigate('/checkoutpage')} // Redirect to checkout page
+        style={{
+          marginTop: '20px',
+          padding: '10px 20px',
+          backgroundColor: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer'
+        }}
+      >
+        Proceed to Checkout
+      </button>
     </div>
   );
 };

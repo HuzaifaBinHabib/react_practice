@@ -9,24 +9,27 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check for token on initial load
+  // Check for token and userId on initial load
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    if (token) {
+    const userId = localStorage.getItem('userId');
+    if (token && userId) {
       setIsLoggedIn(true);
     }
   }, []);
 
-  // Login function: Save token and update state
-  const login = (token) => {
+  // Login function: Save token and userId and update state
+  const login = (token, userId) => {
     setIsLoggedIn(true);
-    localStorage.setItem('authToken', token); // Persist token in localStorage
+    localStorage.setItem('authToken', token);  // Persist token in localStorage
+    localStorage.setItem('userId', userId);    // Persist userId in localStorage
   };
 
-  // Logout function: Clear token and update state
+  // Logout function: Clear token and userId and update state
   const logout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('authToken'); // Remove token on logout
+    localStorage.removeItem('authToken');   // Remove token on logout
+    localStorage.removeItem('userId');      // Remove userId on logout
   };
 
   return (

@@ -39,53 +39,62 @@ const ProductPayment = () => {
   const handleAddToCart = async () => {
     setLoading(true);
     setPaymentError(null);
-  
+
     try {
+      const token = localStorage.getItem('authToken');
       const itemId = product._id || product.id;
       if (!itemId) {
-        setPaymentError("Product ID is missing");
+        setPaymentError('Product ID is missing');
         return;
       }
-  
+      console.log("the token : ",token)
+      if (!token) {
+        setPaymentError('Please log in first.');
+        return;
+      }
+
       // Make the API request to add the item to the cart
       const response = await axios.post(
         `http://localhost:5000/api/v1/booking/add-to-cart`,
-        { itemId, quantity }
+        { itemId, quantity },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in the request headers
+          },
+        }
       );
-  
-      console.log("Add to Cart Response:", response.data);
-  
+
+      console.log('Add to Cart Response:', response.data);
+
       // Check for the success message in the response
-      if (response.data.message === "Item added to cart successfully") {
-        window.location.href = "http://localhost:5000/home"; // Redirect to home
+      if (response.data.message === 'Item added to cart successfully') {
+        window.location.href = 'http://localhost:5000/home'; // Redirect to home
       } else {
-        setPaymentError("Failed to add product to cart.");
+        setPaymentError('Failed to add product to cart.');
       }
     } catch (err) {
-      console.error("Add to Cart Error:", err);
-      // Handle API error response if available
-      setPaymentError(err.response?.data?.message || "An unexpected error occurred");
+      console.error('Add to Cart Error:', err);
+      setPaymentError(err.response?.data?.message || 'An unexpected error occurred');
     } finally {
       setLoading(false); // Reset loading state
     }
   };
-  
-  
 
   const handleBuyNow = async () => {
+    
     if (!isLoggedIn) {
-      setPaymentError("Please log in first.");
+      setPaymentError('Please log in first.');
       return;
     }
     setLoading(true);
     setPaymentError(null);
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('authToken');
       const productId = product._id || product.id;
 
       if (!productId) {
-        throw new Error("Product ID is missing");
+        throw new Error('Product ID is missing');
       }
 
       const response = await axios.post(
@@ -99,9 +108,9 @@ const ProductPayment = () => {
       );
 
       if (response.data && response.data.session && response.data.session.url) {
-        window.location.href = response.data.session.url;
+        window.location.href = response.data.session.url; // Redirect to checkout session
       } else {
-        throw new Error("Failed to initiate checkout session");
+        throw new Error('Failed to initiate checkout session');
       }
     } catch (err) {
       setPaymentError(err.response?.data?.message || err.message);
@@ -109,7 +118,6 @@ const ProductPayment = () => {
     } finally {
       setLoading(false);
     }
-  
   };
 
   if (error) {
