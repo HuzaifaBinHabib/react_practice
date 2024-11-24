@@ -42,6 +42,8 @@ const ProductPayment = () => {
 
     try {
       const token = localStorage.getItem('authToken');
+      const userId = localStorage.getItem('userId');
+      console.log(userId)
       const itemId = product._id || product.id;
       if (!itemId) {
         setPaymentError('Product ID is missing');
@@ -52,11 +54,12 @@ const ProductPayment = () => {
         setPaymentError('Please log in first.');
         return;
       }
-
+      
       // Make the API request to add the item to the cart
+      const itemType = "Product";
       const response = await axios.post(
         `http://localhost:5000/api/v1/booking/add-to-cart`,
-        { itemId, quantity },
+        { userId,itemId, quantity ,itemType},
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the request headers

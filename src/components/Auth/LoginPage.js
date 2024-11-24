@@ -19,12 +19,14 @@ const LoginPage = () => {
         password,
       });
 
-      const { status, token, data } = response.data;
+      const { status, token, data, } = response.data;
 
       if (status === 'success') {
         // Save the token and login the user
         login(token); // Save the token to the context
         localStorage.setItem('authToken', token); // Optionally save the token for persistence
+        localStorage.setItem('userId', data.user._id); // Save user ID
+        
         alert(`Welcome, ${data.user.userName}!`);
         navigate('/home'); // Redirect to the home page
       }

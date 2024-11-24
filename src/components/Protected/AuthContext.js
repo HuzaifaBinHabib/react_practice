@@ -1,39 +1,56 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+// Create AuthContext
 const AuthContext = createContext();
 
-// Custom hook to access the AuthContext
+// Custom hook to access AuthContext
 export const useAuth = () => useContext(AuthContext);
 
 // AuthProvider component
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check for token and userId on initial load
+  // Check for token on initial load
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    const userId = localStorage.getItem('userId');
-    if (token && userId) {
+    if (token) {
       setIsLoggedIn(true);
     }
   }, []);
 
-  // Login function: Save token and userId and update state
+  /**
+   * Login function
+   * @param {string} token - JWT token for authentication
+   */
   const login = (token, userId) => {
-    setIsLoggedIn(true);
-    localStorage.setItem('authToken', token);  // Persist token in localStorage
-    localStorage.setItem('userId', userId);    // Persist userId in localStorage
+    if (token) {
+      localStorage.setItem('authToken', token); // Persist token in localStorage
+  
+      setIsLoggedIn(true);
+    } else {
+      console.error('Login failed: Token is required.');
+    }
   };
 
-  // Logout function: Clear token and userId and update state
+  /**
+   * Logout function
+   * Clears authToken and userId from localStorage and updates state
+   */
   const logout = () => {
+    localStorage.removeItem('authToken'); // Remove token on logout
+    localStorage.removeItem('userId');   // Remove userId on logout
     setIsLoggedIn(false);
-    localStorage.removeItem('authToken');   // Remove token on logout
-    localStorage.removeItem('userId');      // Remove userId on logout
+  };
+
+  // Context value to be shared
+  const contextValue = {
+    isLoggedIn,
+    login,
+    logout,
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

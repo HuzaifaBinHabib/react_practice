@@ -45,17 +45,19 @@ const handleAddToCart = async () => {
 
   try {
     const token = localStorage.getItem('authToken');
+    const userId = localStorage.getItem('userId');
     const itemId = tour._id || tour.id;
     if (!itemId) {
       throw new Error('Tour ID is missing');
     }
-
+    console.log(token)
     const quantity = 1; // You can replace this with your own logic for selecting quantity
+    const itemType = "Tour";
 
     let response;
       // If the user is logged in, send the request with the token
       response = await axios.post(`http://localhost:5000/api/v1/booking/add-to-cart`, 
-        { itemId, quantity },
+        { userId,itemId, quantity ,itemType},
         { headers: { Authorization: `Bearer ${token}` } }
       );
   
