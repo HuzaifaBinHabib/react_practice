@@ -5,7 +5,9 @@
     padding: 0;
     background-color: #f4f4f4;
 }
-
+h1{
+    color: #000;
+}
 header {
     background-color: #333;
     padding: 10px 0;
@@ -47,7 +49,7 @@ header nav ul li a {
 
 .contact-details {
     font-size: 18px;
-    color: #555;
+    color: #333;
 }
 
 .contact-details p {

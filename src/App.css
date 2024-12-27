@@ -4,6 +4,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     color: #333;
+    
   }
   
 /* Header */
@@ -14,10 +15,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 .header h1 {
   margin: 0; /* Remove default margin */
+  color: white;
 }
 
 .header nav {
@@ -61,7 +64,7 @@ body {
   
   /* Product Card */
   .product-card {
-    background-color: #fff;
+    background-color: #030303;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
@@ -84,18 +87,18 @@ body {
   
   .product-card h2 {
     font-size: 1.2rem;
-    color: #333;
+    color: #ddd;
     margin-bottom: 10px;
   }
   
   .product-card p {
-    color: #555;
+    color: #ddd;
     margin-bottom: 10px;
   }
   
   .product-card p:last-of-type {
     font-weight: bold;
-    color: #007bff;
+    color: #ddd;
   }
   
   
@@ -109,7 +112,7 @@ body {
   
   /* tour Card */
   .tour-card {
-    background-color: #fff;
+    background-color: #030303;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
@@ -132,17 +135,17 @@ body {
   
   .tour-card h2 {
     font-size: 1.2rem;
-    color: #333;
+    color: #ddd;
     margin-bottom: 10px;
   }
   
   .tour-card p {
-    color: #555;
+    color: #ddd;
     margin-bottom: 10px;
   }
   
   .tour-card p:last-of-type {
     font-weight: bold;
-    color: #007bff;
+    color: #ddd;
   }
   

@@ -1,5 +1,6 @@
 import React from 'react';
 import './About.css'; // Import the CSS file for styling
+import Bort from'./../Home/Bort'
 
 const AboutPage = () => {
     return (
@@ -26,10 +27,11 @@ const AboutPage = () => {
                     <p>Our team consists of developers, designers, and strategists working together to create impactful solutions.</p>
                 </div>
             </section>
-
+             <Bort/>
             <footer>
                 <p>© 2024 All Rights Reserved</p>
             </footer>
+
         </div>
     );
 };

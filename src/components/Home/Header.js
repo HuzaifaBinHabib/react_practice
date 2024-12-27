@@ -54,11 +54,17 @@ const Header = () => {
 
   return (
     <header className="header">
+      
+      <div className="logo"></div>
+        <ul className="menu">
       <h1>ME&Tours</h1>
       <nav>
         {navLinks}
       </nav>
+        </ul>
+        <div className="logo"></div>
     </header>
+    
   );
 };
 

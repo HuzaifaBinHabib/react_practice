@@ -1,6 +1,8 @@
 // src/components/HomePage.js
 import React, { useEffect, useState } from 'react';
 import ProductList from './ProductList';
+import Bort from'./../Home/Bort'
+
 // import "./Product.css"
 
 
@@ -21,8 +23,10 @@ function ProductPage() {
 
   return (
     <div className="homepage">
-      <h1>Products</h1>
+            <h1>  </h1>
+
       <ProductList products={products}/>
+      <Bort/>
     </div>
   );
 }

@@ -1,12 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+body {
+  font-family: Poppins, sans-serif;
+  margin: 0;
+  background-color: #eee;
+  color: #eee;
+}
 
+svg {
+  width: 25px;
+}
+
+header {
+  width: 1200px;
+  max-width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 50px 1fr 50px;
+  grid-template-rows: 50px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 100;
+}
+
+header .logo {
+  font-weight: bold;
+}
+
+header .menu {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-weight: 500;
+}
+
+/* Product Details */
 .product-details {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #f9f9f9;
+  color: #dad5d5;
   font-family: 'Arial', sans-serif;
+  background-image: url('https://i.ibb.co/L9jxFND/your-image.jpg'); /* Background image */
+  background-size: cover; /* Ensure it covers the entire background */
+  background-position: center; /* Center the image */
+  
 }
 
 .product-details-box {
@@ -14,7 +57,6 @@
   flex-wrap: wrap;
   width: 80%;
   max-width: 1200px;
-  background: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
@@ -24,7 +66,8 @@
   flex: 1 1 50%;
   padding: 20px;
   text-align: center;
-  background-color: #f4f4f4;
+
+  
 }
 
 .product-image img {
@@ -46,12 +89,13 @@
 .product-info .product-description {
   font-size: 1rem;
   margin: 15px 0;
-  color: #666;
+  color: #e2dddd;
 }
 
 .product-info p {
   margin: 8px 0;
   font-size: 1rem;
+  color: #e2dddd;
 }
 
 .quantity-selector {
@@ -84,19 +128,39 @@
 }
 
 .btn-cart {
-  background-color: #4caf50;
+  background-color: #aca7a4;
   color: white;
 }
 
 .btn-cart:hover {
-  background-color: #45a049;
+  background-color: #686563;
 }
 
 .btn-buy {
-  background-color: #ff5722;
+  background-color: #aca7a4;
   color: white;
 }
 
 .btn-buy:hover {
-  background-color: #e64a19;
+  background-color: #686563;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 678px) {
+  .product-details {
+    padding: 10px;
+  }
+
+  .product-details-box {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .product-info h1 {
+    font-size: 1.5rem;
+  }
+
+  .product-info .product-description {
+    font-size: 0.9rem;
+  }
 }
